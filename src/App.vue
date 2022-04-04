@@ -1,21 +1,23 @@
 <template>
   <div id="app">
     <img alt="Collaboat logo" src="./assets/logo.svg" width="320" height="64" class="logo">
-    <ul>
-      <li v-for="file in files" :key="file.name">{{file.name}} - Error: {{file.error}}, Success: {{file.success}}</li>
-    </ul>
-    <file-upload
-      ref="upload"
-      v-model="files"
+    <div class="upload-tool">
+      <div>
+        <file-upload
+          ref="upload"
+          v-model="files"
 
-      :post-action="API_URL"
-      @input-file="inputFile"
-      @input-filter="inputFilter"
-    >
-    Upload file
-    </file-upload>
-    <button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button">Start upload</button>
-    <button v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button">Stop upload</button>
+          :post-action="API_URL"
+          @input-file="inputFile"
+          @input-filter="inputFilter"
+        >
+        Enviar imagem
+        </file-upload>
+      </div>
+      <button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button" :disabled="!files.length">
+        Começar upload
+      </button>
+    </div>
   </div>
 </template>
 <script>
@@ -101,5 +103,19 @@ body {
 }
 .logo {
   margin-top: 12px;
+}
+.file-uploads {
+  margin-top: 48px;
+  width: 100%;
+  background: #007bff;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 8px dashed #fafafa;
+  padding: 20px;
+  margin-bottom: 32px;
+  cursor: pointer;
+  font-size: 32px;
 }
 </style>
